@@ -1,0 +1,21 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+    e2e:
+        name: 🧪 Test (${{ matrix.shard }}/${{ strategy.job-total }})
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                shard: [1, 2, 3, 4]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: ./.github/workflows/actions/setup
+            - name: E2E Test
+              run: npm run wdio -- --shard ${{ matrix.shard }}/${{ strategy.job-total }}
+            - uses: actions/upload-artifact@v1
+              if: failure()
+              with:
+                  name: logs-${{ matrix.shard }}
+                  path: logs
