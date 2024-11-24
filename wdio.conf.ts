@@ -76,7 +76,8 @@ export const config: Options.Testrunner = {
             browserName: 'chrome',
             'goog:chromeOptions': {
                 args: [
-                    // 'headless',
+                    'headless',
+                    '--window-size=1400,1050',
                     'disable-gpu'
                 ]
             }
@@ -90,7 +91,10 @@ export const config: Options.Testrunner = {
         {
             browserName: 'msedge',
             'ms:edgeOptions': {
-                args: ['--headless']
+                args: [
+                    '--headless',
+                    '--window-size=1400,1050',
+                ]
             }
         }
     ],
