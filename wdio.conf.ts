@@ -1,5 +1,6 @@
 import type { Options } from '@wdio/types'
 require('dotenv').config();
+import path from 'path'
 
 export const config: Options.Testrunner = {
     //
@@ -74,15 +75,18 @@ export const config: Options.Testrunner = {
         {
             browserName: 'chrome',
             'goog:chromeOptions': {
-                args: ['headless', 'disable-gpu']
+                args: [
+                    // 'headless',
+                    'disable-gpu'
+                ]
             }
         },
-        {
-            browserName: 'firefox',
-            'moz:firefoxOptions': {
-                args: ['-headless']
-            }
-        },
+        // {
+        //     browserName: 'firefox',
+        //     'moz:firefoxOptions': {
+        //         args: ['-headless']
+        //     }
+        // },
         {
             browserName: 'msedge',
             'ms:edgeOptions': {
@@ -170,7 +174,17 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        [
+            'allure',
+            {
+                outputDir: path.resolve('./reports/'),
+                disableWebdriverStepsReporting: true,
+                disableWebdriverScreenshotsReporting: false,
+            },
+        ],
+    ],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -273,8 +287,9 @@ export const config: Options.Testrunner = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+        await browser.saveScreenshot(path.resolve(`./reports/${test.title}-retries${retries.attempts}.png`))
+    },
 
 
     /**
