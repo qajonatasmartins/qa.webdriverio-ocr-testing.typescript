@@ -39,9 +39,10 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: npx wdio run ./wdio.conf.ts --shard ${{ matrix.shard }}/4
-
+          
       # Upload dos relatórios gerados
       - name: Upload Reports
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: reports-${{ matrix.shard }}
