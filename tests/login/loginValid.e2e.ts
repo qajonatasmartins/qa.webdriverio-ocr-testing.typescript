@@ -14,6 +14,7 @@ describe('Team Building Balancer', () => {
 
     it('should login with valid credentials', async () => {
         // Act
+        await browser.pause(5000)
         await onboardingActions.waitLoadingElementsFlutterWeb()
         await onboardingActions.skipOnBoardingAndGoLogin()
         await loginActions.toLogin(ct0001)
