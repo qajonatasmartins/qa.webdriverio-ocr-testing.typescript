@@ -26,6 +26,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Debug Secrets
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: |
+          echo "Email: $EMAIL"
+          echo "Password: ${PASSWORD:0:3}***" # Mascarando o segredo
+
       - name: Run E2E Tests
         env:
           EMAIL: ${{ secrets.EMAIL }}
