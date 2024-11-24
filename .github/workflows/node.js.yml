@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Substitua pela versão do Node.js usada no seu projeto
+          node-version: 22 # Configurando o Node.js para a versão 22
 
       - name: Install Dependencies
         run: npm ci
