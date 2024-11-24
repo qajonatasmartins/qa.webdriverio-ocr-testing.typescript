@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Run E2E Tests
-        run: npx run wdio -- --shard ${{ matrix.shard }}/4
+        run: npx wdio run ./wdio.conf.ts --shard ${{ matrix.shard }}/4
 
       - name: Upload Logs on Failure
         if: failure()
