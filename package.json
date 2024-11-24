@@ -1,18 +1,18 @@
 {
-  "name": "OCR",
-  "type": "module",
+  "name": "qa.webdriverio-ocr-testing.typescript",
+  "main": "index.js",
   "devDependencies": {
     "@wdio/local-runner": "^9.3.1",
     "@wdio/mocha-framework": "^9.2.8",
-    "@wdio/ocr-service": "^2.2.1",
     "@wdio/spec-reporter": "^9.2.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts"
+    "wdio": "cross-env wdio run ./wdio.conf.ts",
+    "login": "cross-env wdio run ./wdio.conf.ts --suite login"
   },
   "dependencies": {
-    "tesseract.js": "^5.1.1"
+    "cross-env": "^7.0.3"
   }
 }

@@ -1,4 +1,5 @@
 import type { Options } from '@wdio/types'
+
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -32,8 +33,16 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/*.ts'
+        './tests/**/**/*.ts'
     ],
+    suites: {
+        login: [
+            './tests/login/**/*.ts'
+        ],
+        otherFeature: [
+            // ...
+        ]
+    },
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -61,7 +70,10 @@ export const config: Options.Testrunner = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            args: ['headless', 'disable-gpu']
+        }
     }],
 
     //
@@ -71,7 +83,7 @@ export const config: Options.Testrunner = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'silent',
     //
     // Set specific log levels per logger
     // loggers:
@@ -95,7 +107,7 @@ export const config: Options.Testrunner = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    baseUrl: '',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -111,16 +123,16 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [
-        [
-            "ocr",
-            {
-                contrast: 1,
-                imagesFolder: ".tmp/",
-                language: "eng",
-            },
-        ],
-    ],
+    // services: [
+    //     [
+    //         "ocr",
+    //         {
+    //             contrast: 1,
+    //             imagesFolder: ".tmp/",
+    //             language: "eng",
+    //         },
+    //     ],
+    // ],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
