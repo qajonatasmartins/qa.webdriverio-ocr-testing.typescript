@@ -27,6 +27,9 @@ jobs:
         run: npm ci
 
       - name: Run E2E Tests
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: npx wdio run ./wdio.conf.ts --shard ${{ matrix.shard }}/4
 
       - name: Upload Logs on Failure
