@@ -40,13 +40,6 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
         run: npx wdio run ./wdio.conf.ts --shard ${{ matrix.shard }}/4
 
-      - name: Upload Logs on Failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs-${{ matrix.shard }}
-          path: logs
-          
       # Upload dos relatórios gerados
       - name: Upload Reports
         uses: actions/upload-artifact@v4
